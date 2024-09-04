@@ -13,18 +13,16 @@
           class="overflow-hidden transition-all duration-300"
         >
           <div class="p-4 bg-white">
-            <slot :name="`accordion-${index}`">
-              <Blocks
-                v-if="props.builderBlock?.id"
-                :parent="props.builderBlock?.id"
-                :path="`component.options.items.${index}.content`"
-                :blocks="item.content"
-              />
-            </slot>
+          <slot :name="`accordion-${index}`">
+            <Blocks
+              :parent="props.builderBlock?.id"
+              :path="`component.options.items.${index}.content`"
+              :blocks="item.content"
+            />
+          </slot>
           </div>
         </div>
       </div>
-      <slot></slot>
     </div>
   </div>
 </template>
@@ -43,7 +41,6 @@ type Props = {
     content: any[];
   }[];
   builderBlock?: BuilderBlock;
-  multiple: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
@@ -63,23 +60,15 @@ const props = withDefaults(defineProps<Props>(), {
   ],
 });
 
-const activeIndexes = ref<number[]>([]);
+const activeIndex = ref<number | null>(null);
 
 const toggle = (index: number) => {
-  if (props.multiple) {
-    if (activeIndexes.value.includes(index)) {
-      activeIndexes.value = activeIndexes.value.filter((i) => i !== index);
-    } else {
-      activeIndexes.value.push(index);
-    }
-  } else {
-    activeIndexes.value = [index];
-  }
+  activeIndex.value = activeIndex.value === index ? null : index;
 };
 
 const isActive = (index: number) => {
-  return activeIndexes.value.includes(index);
+  return activeIndex.value === index;
 };
 </script>
 
-<style ></style>
+<style scoped></style>

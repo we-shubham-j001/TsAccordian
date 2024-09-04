@@ -9,6 +9,12 @@ export const registeredComponents = [
       {
         name: "items",
         type: "list",
+        defaultValue: [
+          {
+            title: 'Heading 1',
+            content: []
+          }
+        ],
         subFields: [
           {
             name: "title",
@@ -22,11 +28,7 @@ export const registeredComponents = [
             defaultValue: [],
           },
         ],
-      },
-      {
-        name: "multiple",
-        type: "boolean",
-      },
+      }
     ],
   },
 ];
